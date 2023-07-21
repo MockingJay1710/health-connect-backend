@@ -1,0 +1,81 @@
+package com.example.healthsystem.service;
+
+import com.example.healthsystem.dto.UserDTO;
+import com.example.healthsystem.model.User;
+import com.example.healthsystem.model.UserType;
+import com.example.healthsystem.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<Map<String, Object>> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<Map<String, Object>> userDTOs = new ArrayList<>();
+
+        for (User user : users) {
+            Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+            userDTOs.add(userDTO);
+        }
+
+        return userDTOs;
+    }
+
+    public Map<String, Object> getUserById(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+
+        if (user == null) {
+            return null;
+        }
+
+        Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+        return userDTO;
+    }
+
+    public Map<String, Object> getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            return null;
+        }
+
+        Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+        return userDTO;
+    }
+
+    public ResponseEntity createUser(String name, String email, String password, String phone_number, UserType user_type) {
+
+        try {
+        String encryptedPassword = PasswordEncriptService.encript(password);
+
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(encryptedPassword);
+        user.setPhoneNumber(phone_number);
+        user.setUserType(user_type);
+        userRepository.save(user);
+        Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+        return ResponseEntity.ok(userDTO);
+        } catch (Exception e) {
+            Map<String, Object> response = Map.of(
+                "message", "Error creating user",
+                "error", e.getMessage()
+            );
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+}
