@@ -16,7 +16,11 @@ public class ServiceProviderSchedule {
 
     @ManyToOne
     @JoinColumn (name = "service_provider_id", updatable = false, nullable = false)
-    private User user;
+    private User service_provide_id;
+
+    @ManyToOne
+    @JoinColumn (name = "patient_id", updatable = false, nullable = false)
+    private User patient_id;
 
     @Column (nullable = false)
     private LocalDateTime date;
@@ -42,12 +46,20 @@ public class ServiceProviderSchedule {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getServiceProviderId() {
+        return service_provide_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setServiceProviderId(User user) {
+        this.service_provide_id = service_provide_id;
+    }
+
+    public User getPatient() {
+        return patient_id;
+    }
+
+    public void setPatient(User user) {
+        this.patient_id = patient_id;
     }
 
     public LocalDateTime getDate() {

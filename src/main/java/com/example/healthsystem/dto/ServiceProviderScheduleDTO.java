@@ -9,6 +9,7 @@ import java.util.Map;
 public class ServiceProviderScheduleDTO {
     private Long id;
     private Long serviceProviderId;
+    private Long patientId;
     private LocalDateTime date;
     private Boolean reservation;
     private Date created_at;
@@ -21,7 +22,8 @@ public class ServiceProviderScheduleDTO {
     public Map<String, Object> getServiceProviderScheduleDTOResponse(ServiceProviderSchedule serviceProviderSchedule) {
         Map<String, Object> serviceProviderScheduleDTO = Map.ofEntries(
             Map.entry("id", serviceProviderSchedule.getId()),
-            Map.entry("service_provider_id", serviceProviderSchedule.getUser().getId()),
+            Map.entry("service_provider_id", serviceProviderSchedule.getServiceProviderId().getId()),
+            Map.entry("patient_id", serviceProviderSchedule.getPatient().getId()),
             Map.entry("date", serviceProviderSchedule.getDate()),
             Map.entry("available", serviceProviderSchedule.getReservation()),
             Map.entry("created_at", serviceProviderSchedule.getCreatedAt())
