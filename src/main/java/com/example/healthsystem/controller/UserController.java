@@ -80,4 +80,14 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
   }
+
+  @GetMapping
+  @RequestMapping("/users/{id}/address")
+  public List<Map<String, Object>> getUserSavedAddress(@PathVariable(value="id") String id) {
+    Long userId = Long.parseLong(id);
+    List<Map<String, Object>> address = userService.getAddressByUserId(userId);
+
+    return address;
+  }
+
 }

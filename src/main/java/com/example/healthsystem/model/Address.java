@@ -10,11 +10,11 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn (name = "user_id", nullable = false)
+    @JoinColumn (name = "user_id", updatable = false)
     private User user;
 
     @Column (nullable = false)
@@ -34,6 +34,17 @@ public class Address {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updated_at;
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = new Date();
+        updated_at = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = new Date();
+    }
 
     public User getUser() {
         return user;
@@ -108,27 +119,23 @@ public class Address {
         this.longitude = longitude;
     }
 
-    public Date getCreated_at() {
+    public Date getCreatedAt() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreatedAt(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
+    public Date getUpdatedAt() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdatedAt(Date updated_at) {
         this.updated_at = updated_at;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        created_at = new Date();
-        updated_at = new Date();
-    }
+
 
 
 }

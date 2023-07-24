@@ -1,8 +1,11 @@
 package com.example.healthsystem.service;
 
+import com.example.healthsystem.dto.AddressDTO;
 import com.example.healthsystem.dto.UserDTO;
+import com.example.healthsystem.model.Address;
 import com.example.healthsystem.model.User;
 import com.example.healthsystem.model.UserType;
+import com.example.healthsystem.repository.AddressRepository;
 import com.example.healthsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +18,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+    @Autowired
     private final UserRepository userRepository;
     @Autowired
-    public UserService(UserRepository userRepository) {
+    private final AddressRepository addressRepository;
+
+    public UserService(UserRepository userRepository, AddressRepository addressRepository) {
         this.userRepository = userRepository;
+        this.addressRepository = addressRepository;
     }
 
     public List<Map<String, Object>> getAllUsers() {
@@ -53,6 +60,18 @@ public class UserService {
 
         Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
         return userDTO;
+    }
+
+    public List<Map<String, Object>> getAddressByUserId(Long id) {
+        List<Address> addresses = addressRepository.findByUser_Id(id);
+        List<Map<String, Object>> addressesDTO = new ArrayList<>();
+
+        for (Address address : addresses) {
+            Map<String, Object> addressDTO = new AddressDTO().getAddressDTOResponse(address);
+            addressesDTO.add(addressDTO);
+        }
+
+        return addressesDTO;
     }
 
     public ResponseEntity createUser(String name, String email, String password, String phone_number, UserType user_type) {
