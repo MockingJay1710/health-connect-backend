@@ -7,7 +7,6 @@ The main goal of this project is to practice Java and its architecture.
 ## Data model
 <img width="450px" src="./HealthSystem.png" />
 
-<br/>
-You have three possibilities of users: Patient, Doctor, and Company. </br>
+You have three possibilities of users: <strong>Patient</strong>, <strong>Doctor</strong>, and <strong>Company</strong>.</br>
 For now, the password is not required because there's no login system yet. But the idea in the future is allow the possibility to have a dashboard for the doctors/company. <br/>
 Every user will have an address associated. After the first register, when the user tries to make another appointment, the user address info will be pre-loaded from the backend info, using the e-mail (unique).
