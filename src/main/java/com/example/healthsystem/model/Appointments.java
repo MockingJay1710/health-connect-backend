@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "service_provider_schedule")
-public class ServiceProviderSchedule {
+@Table(name = "appointments")
+public class Appointments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -19,10 +19,10 @@ public class ServiceProviderSchedule {
     private User service_provide_id;
 
     @ManyToOne
-    @JoinColumn (name = "patient_id", updatable = false, nullable = false)
+    @JoinColumn (name = "patient_id")
     private User patient_id;
 
-    @Column (nullable = false)
+    @Column (nullable = false, updatable = false)
     private LocalDateTime date;
 
 
@@ -33,9 +33,19 @@ public class ServiceProviderSchedule {
     @Column(name = "created_at", updatable = false)
     private Date created_at;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updated_at;
+
     @PrePersist
     protected void onCreate() {
         created_at = new Date();
+        updated_at = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = new Date();
     }
 
     public Long getId() {
@@ -51,7 +61,7 @@ public class ServiceProviderSchedule {
     }
 
     public void setServiceProviderId(User user) {
-        this.service_provide_id = service_provide_id;
+        this.service_provide_id = user;
     }
 
     public User getPatient() {
@@ -59,7 +69,7 @@ public class ServiceProviderSchedule {
     }
 
     public void setPatient(User user) {
-        this.patient_id = patient_id;
+        this.patient_id = user;
     }
 
     public LocalDateTime getDate() {
@@ -84,5 +94,13 @@ public class ServiceProviderSchedule {
 
     public void setCreatedAt(Date created_at) {
         this.created_at = created_at;
+    }
+
+    public Date getUpdatedAt() {
+        return updated_at;
+    }
+
+    public void setUpdatedAt(Date updated_at) {
+        this.updated_at = updated_at;
     }
 }
