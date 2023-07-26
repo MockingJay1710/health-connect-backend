@@ -1,11 +1,13 @@
 package com.example.healthsystem.controller;
 
+import com.example.healthsystem.dto.AppointmentsDTO;
 import com.example.healthsystem.model.Appointments;
 import com.example.healthsystem.model.User;
 import com.example.healthsystem.service.AppointmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +20,10 @@ public class AppointmentsController {
         this.appointmentsService = appointmentsService;
     }
     @GetMapping("/appointments")
-    public List<Appointments>  getServiceProviderSchedule() {
-        List<Appointments>  response = appointmentsService.getSchedule();
+    public List<Map<String,Object>> getServiceProviderSchedule() {
+        List<Map<String,Object>> appointments = appointmentsService.getSchedule();
 
-        return response;
+        return appointments;
     }
 
     @PostMapping("/appointments/schedule/generate")

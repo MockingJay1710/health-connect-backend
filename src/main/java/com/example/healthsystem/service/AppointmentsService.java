@@ -28,9 +28,16 @@ public class AppointmentsService {
     }
 
 
-    public List<Appointments> getSchedule() {
+    public List<Map<String,Object>> getSchedule() {
         List<Appointments> appointments = appointmentsRepository.findAll();
-        return appointments;
+        List<Map<String,Object>> parsedResponse = new ArrayList<>();
+
+        for (Appointments appointment: appointments) {
+            Map<String, Object> response = new AppointmentsDTO().getScheduleDTOResponse(appointment);
+            parsedResponse.add(response);
+        }
+
+        return parsedResponse;
     }
 
     public Map<String, Object> registerAppointment(Map<String,Object> patientId, Long appointmentId) {

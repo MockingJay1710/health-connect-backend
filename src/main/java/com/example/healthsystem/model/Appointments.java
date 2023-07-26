@@ -103,4 +103,5 @@ public class Appointments {
     public void setUpdatedAt(Date updated_at) {
         this.updated_at = updated_at;
     }
+
 }

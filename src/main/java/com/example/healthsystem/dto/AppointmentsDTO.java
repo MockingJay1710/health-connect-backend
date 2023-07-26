@@ -42,4 +42,34 @@ public class AppointmentsDTO {
         );
         return serviceProviderScheduleDTO;
     }
+
+    public Map<String, Object> getScheduleDTOResponse(Appointments appointments) {
+        Map<String, Object> serviceProvider = new HashMap<>();
+        serviceProvider.put("id", appointments.getServiceProviderId().getId());
+        serviceProvider.put("name", appointments.getServiceProviderId().getName());
+        serviceProvider.put("email", appointments.getServiceProviderId().getEmail());
+
+        Map<String, Object> patientProvider = null;
+        Boolean hasPatient = appointments.getPatient() != null;
+
+        if (hasPatient) {
+            patientProvider = new HashMap<>();
+            patientProvider.put("id", appointments.getPatient().getId());
+            patientProvider.put("name", appointments.getPatient().getName());
+            patientProvider.put("email", appointments.getPatient().getEmail());
+        }
+
+
+        Map<String, Object> scheduleDTOResponse = new HashMap<>();
+        scheduleDTOResponse.put("id", appointments.getId());
+        scheduleDTOResponse.put("service_provider", serviceProvider);
+        scheduleDTOResponse.put("patient", patientProvider);
+        scheduleDTOResponse.put("date", appointments.getDate());
+        scheduleDTOResponse.put("reservation", appointments.getReservation());
+        scheduleDTOResponse.put("created_at", appointments.getCreatedAt());
+        scheduleDTOResponse.put("updated_at", appointments.getUpdatedAt());
+
+
+        return scheduleDTOResponse;
+    }
 }

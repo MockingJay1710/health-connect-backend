@@ -1,6 +1,7 @@
 package com.example.healthsystem.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -40,6 +41,8 @@ public class User {
   @Enumerated(EnumType.STRING)
   @Column(name = "user_type", nullable = false)
   private UserType user_type;
+
+ // Todo: add speciality relationship
  
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "created_at", updatable = false)
