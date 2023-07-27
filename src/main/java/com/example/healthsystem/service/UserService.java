@@ -62,6 +62,18 @@ public class UserService {
         return userDTO;
     }
 
+    public List<Map<String,Object>> getServiceProviders() {
+        List<User> users = userRepository.findServiceProviders();
+        List<Map<String, Object>> userDTOs = new ArrayList<>();
+
+        for (User user : users) {
+            Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+            userDTOs.add(userDTO);
+        }
+
+        return userDTOs;
+    }
+
     public List<Map<String, Object>> getAddressByUserId(Long id) {
         List<Address> addresses = addressRepository.findByUser_Id(id);
         List<Map<String, Object>> addressesDTO = new ArrayList<>();

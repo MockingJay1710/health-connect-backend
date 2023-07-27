@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.healthsystem.dto.UserDTO;
 import com.example.healthsystem.model.UserType;
 import com.example.healthsystem.service.UserService;
+import org.apache.coyote.Request;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,6 +80,34 @@ public class UserController {
       response.put("message", "User not found");
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+  }
+
+
+  @PostMapping
+  @RequestMapping("/users/email")
+  public ResponseEntity getUserByEmail(@RequestBody Map<String, Object> req) {
+    Map<String, Object> response = new HashMap<>();
+    try {
+      String email = req.get("email").toString();
+      Map<String, Object> user = userService.getUserByEmail(email);
+
+      if (user != null) {
+        return ResponseEntity.ok(user);
+      }
+      return ResponseEntity.status(404).body(
+              Map.of("message", "User not found")
+      );
+    } catch (Exception e) {
+      response.put("message", "User not found");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+  }
+
+  @GetMapping
+  @RequestMapping("/users/providers")
+  public List<Map<String,Object>> getServiceProviders() {
+    List<Map<String, Object>> serviceProviders = userService.getServiceProviders();
+    return serviceProviders;
   }
 
   @GetMapping
