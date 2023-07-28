@@ -89,17 +89,23 @@ public class UserService {
     public ResponseEntity createUser(String name, String email, String password, String phone_number, UserType user_type) {
 
         try {
-        String encryptedPassword = PasswordEncriptService.encript(password);
+            if(password != null) {
+                password = PasswordEncriptService.encript(password);
+            }
 
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(encryptedPassword);
-        user.setPhoneNumber(phone_number);
-        user.setUserType(user_type);
-        userRepository.save(user);
-        Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
-        return ResponseEntity.ok(userDTO);
+            if (user_type == null) {
+                user_type = UserType.PATIENT;
+            }
+
+            User user = new User();
+            user.setName(name);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setPhoneNumber(phone_number);
+            user.setUserType(user_type);
+            userRepository.save(user);
+            Map<String, Object> userDTO = new UserDTO().getUserDTOResponse(user);
+            return ResponseEntity.ok(userDTO);
         } catch (Exception e) {
             Map<String, Object> response = Map.of(
                 "message", "Error creating user",
@@ -107,6 +113,17 @@ public class UserService {
             );
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    public Map<String,Object> updateUser(User user, Long id) {
+        User savedUser = userRepository.findById(id).orElse(null);
+        savedUser.setName(user.getName());
+        savedUser.setPhoneNumber(user.getPhoneNumber());
+
+        User updatedUser = userRepository.save(savedUser);
+
+        Map<String, Object> response = new UserDTO().getUserDTOResponse(updatedUser);
+        return response;
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.healthsystem.dto.UserDTO;
+import com.example.healthsystem.model.Address;
 import com.example.healthsystem.model.UserType;
 import com.example.healthsystem.service.UserService;
 import org.apache.coyote.Request;
@@ -119,4 +120,12 @@ public class UserController {
     return address;
   }
 
+
+  @PutMapping("/users/update/{id}")
+  public Map<String, Object> updateUser(@RequestBody User user, @PathVariable(value="id") String id) {
+    Long userId = Long.parseLong(id);
+    Map<String, Object> response = userService.updateUser(user, userId);
+
+    return response;
+  }
 }
