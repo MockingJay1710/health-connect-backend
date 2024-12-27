@@ -2,7 +2,7 @@ package com.example.healthsystem.controller;
 
 import com.example.healthsystem.dto.AppointmentsDTO;
 import com.example.healthsystem.model.Appointments;
-import com.example.healthsystem.model.User;
+import  com.example.healthsystem.model.User;
 import com.example.healthsystem.service.AppointmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

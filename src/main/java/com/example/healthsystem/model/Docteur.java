@@ -25,11 +25,7 @@ public class Docteur extends User{
 
     }
 
-    public Docteur(String name, String password, String phone_number, UserType user_type,String numTel, String mail,String specialiteDocteur) {
-        super(name, password, phone_number, user_type);
-        this.email = mail;
-        this.specialiteDocteur = specialiteDocteur;
-    }
+
 
     public String getEmail() {
         return email;

@@ -19,14 +19,9 @@ public class Patient extends User{
     @OneToMany
     private List<Consultation> consultations = new ArrayList<>();
 
-    public Patient(){
 
-    }
 
-    public Patient(String name, String password, String phone_number, UserType user_type,String numTel, Date dateNaissance) {
-        super(name, password, phone_number, user_type);
-        this.dateNaissance = dateNaissance;
-    }
+
 
     public Date getDateNaissance() {
         return dateNaissance;
