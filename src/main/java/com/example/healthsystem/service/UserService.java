@@ -99,7 +99,6 @@ public class UserService {
 
             User user = new User();
             user.setName(name);
-            user.setEmail(email);
             user.setPassword(password);
             user.setPhoneNumber(phone_number);
             user.setUserType(user_type);

@@ -7,22 +7,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn (name = "Type")
 @Table(name = "users")
 public class User {
-  @OneToOne(mappedBy = "user")
 
-  private ProfilMedical profilMedical;
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
   @Column(name = "name", nullable = false)
   private String name;
-
-  @Column(name = "email", nullable = false, unique = true)
-  private String email;
 
   @Column(name = "password")
   private String password;
@@ -34,26 +29,21 @@ public class User {
   @Column(name = "user_type", nullable = false)
   private UserType user_type;
 
- // Todo: add speciality relationship
- 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_at", updatable = false)
-  private Date created_at;
+  @OneToOne(mappedBy = "user")
+  private ProfilMedical profilMedical;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "updated_at")
-  private Date updated_at;
+  public User(){
 
-  @PrePersist
-  protected void onCreate() {
-    created_at = new Date();
-    updated_at = new Date();
   }
 
-  @PreUpdate
-  protected void onUpdate() {
-    updated_at = new Date();
+  public User(String name, String password, String phone_number, UserType user_type) {
+    this.name = name;
+    this.password = password;
+    this.phone_number = phone_number;
+    this.user_type = user_type;
   }
+
+
 
   public Long getId() {
     return id;
@@ -71,13 +61,6 @@ public class User {
     this.name = name;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
   public String getPassword() {
     return password;
@@ -103,19 +86,5 @@ public class User {
     this.user_type = user_type;
   }
 
-  public Date getCreatedAt() {
-    return created_at;
-  }
 
-  public void setCreatedAt(Date created_at) {
-    this.created_at = created_at;
-  }
-
-  public Date getUpdatedAt() {
-    return updated_at;
-  }
-
-  public void setUpdatedAt(Date updated_at) {
-    this.updated_at = updated_at;
-  }
 }
