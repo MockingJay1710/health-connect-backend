@@ -9,11 +9,8 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
-    private String password;
     private String phoneNumber;
     private String userType;
-    private Date createdAt;
-    private Date updatedAt;
 
     public UserDTO() {
 
@@ -26,11 +23,7 @@ public class UserDTO {
         Map<String, Object> userDTO = Map.of(
             "id", user.getId(),
             "name", user.getName(),
-            "email", user.getEmail(),
-            "phone_number", user.getPhoneNumber(),
-            "user_type", user.getUserType(),
-            "created_at", user.getCreatedAt(),
-            "updated_at", user.getUpdatedAt()
+            "email", user.getEmail()
         );
         return userDTO;
     }

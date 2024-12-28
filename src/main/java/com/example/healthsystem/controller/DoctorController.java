@@ -1,7 +1,7 @@
 package com.example.healthsystem.controller;
 
 import com.example.healthsystem.model.Docteur;
-import com.example.healthsystem.service.DoctorService;
+import com.example.healthsystem.service.DocteurService;
 import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,9 @@ import java.util.List;
 @Controller
 public class DoctorController {
     @Autowired
-    private final DoctorService doctorService;
+    private final DocteurService doctorService;
 
-    public DoctorController(DoctorService doctorService) {
+    public DoctorController(DocteurService doctorService) {
         this.doctorService = doctorService;
     }
 

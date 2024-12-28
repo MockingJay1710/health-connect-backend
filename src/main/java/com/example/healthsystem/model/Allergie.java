@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Allergie {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String nomAllergie;
-        private String symptomes;
+    private String nomAllergie;
+    private String symptomes;
+
+    @ManyToOne
+    private ProfilMedical profilMedical ;
 
     public Allergie() {
     }

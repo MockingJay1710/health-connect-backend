@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface DocteurRepository extends JpaRepository<Docteur, Integer> {
+public interface DocteurRepository extends JpaRepository<Docteur, Long> {
     @Query("SELECT u FROM User u WHERE u.user_type = 'DOCTOR'")
     List<Docteur> getAllDoctors();
 

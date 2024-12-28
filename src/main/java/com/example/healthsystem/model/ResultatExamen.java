@@ -10,6 +10,9 @@ public class ResultatExamen {
     private Long id;
     private String remarques  ;
 
+    @ManyToOne
+    private ProfilMedical profilMedical ;
+
     @OneToOne
     private Consultation consultation;
 
