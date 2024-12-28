@@ -1,7 +1,7 @@
 # Health System Front-end
 The initial idea is to create a backend where the user can schedule a consultation with a doctor. </br>
 Maybe in the future add some features like videocall for online medical consultation. </br>
-The frontend will be done in Nuxt/Vue, you can follow the <a href="https://github.com/MatheusFelizardo/health-system-frontend"> frontend here </a> </br>
+The frontend will be done in Nuxt/Vue, you can follow the <a href="https://github.com/Salah-ZEddine/Health-Connect"> frontend here </a> </br>
 The main goal of this project is to practice Java and its architecture.
 
 ## Data model
