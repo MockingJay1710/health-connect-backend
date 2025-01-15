@@ -11,21 +11,24 @@ public class ProfilMedical {
     private Long id ;
     private String contactUrgence ;
 
-
-
     @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @OneToMany
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+
+    @OneToMany (fetch = FetchType.EAGER , mappedBy = "profilMedical")
     private List<Allergie> allergies = new ArrayList<>();
-    @OneToMany
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
     private List<Vaccination> vaccinations = new ArrayList<>();
-    @OneToMany
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
     private List<ResultatExamen> resultatsExamen = new ArrayList<>();
 
-    public User getUser() {
-        return user;
+    public ProfilMedical(Long id, String contactUrgence, Patient patient) {
+        this.id = id;
+        this.contactUrgence = contactUrgence;
+        this.patient = patient;
     }
+    public ProfilMedical() {}
 
     public Long getId() {
         return id;
@@ -35,7 +38,45 @@ public class ProfilMedical {
         this.id = id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public String getContactUrgence() {
+        return contactUrgence;
     }
+
+    public void setContactUrgence(String contactUrgence) {
+        this.contactUrgence = contactUrgence;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public List<Allergie> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<Allergie> allergies) {
+        this.allergies = allergies;
+    }
+
+    public List<Vaccination> getVaccinations() {
+        return vaccinations;
+    }
+
+    public void setVaccinations(List<Vaccination> vaccinations) {
+        this.vaccinations = vaccinations;
+    }
+
+    public List<ResultatExamen> getResultatsExamen() {
+        return resultatsExamen;
+    }
+
+    public void setResultatsExamen(List<ResultatExamen> resultatsExamen) {
+        this.resultatsExamen = resultatsExamen;
+    }
+
+
 }

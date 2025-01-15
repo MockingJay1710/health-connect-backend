@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 public class Docteur extends User{
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
     @Column(name= "specialite_docteur")
     private String specialiteDocteur;
 
@@ -22,17 +20,11 @@ public class Docteur extends User{
     private List<Consultation> consultations= new ArrayList<>();
 
     public Docteur(){
-
     }
 
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public Docteur(Long id, String name, String email, String phone_number, UserType userType,Date dateNaissance, String specialiteDocteur) {
+        super(id, name, email, phone_number, userType, dateNaissance);
+        this.specialiteDocteur = specialiteDocteur;
     }
 
     public String getSpecialiteDocteur() {
@@ -42,4 +34,13 @@ public class Docteur extends User{
     public void setSpecialiteDocteur(String specialiteDocteur) {
         this.specialiteDocteur = specialiteDocteur;
     }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
+    }
+
 }

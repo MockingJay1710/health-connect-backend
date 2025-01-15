@@ -1,9 +1,6 @@
 package com.example.healthsystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -15,6 +12,9 @@ public class Vaccination {
     private String vaccineName;
     private String vaccineType;
     private Date vaccineDate;
+
+    @ManyToOne
+    private ProfilMedical profilMedical ;
 
     public Vaccination() {
 

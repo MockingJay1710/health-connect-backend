@@ -12,22 +12,30 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(value = "PAT")
 public class Patient extends User{
-    private Date dateNaissance;
 
-    @OneToOne
+    @OneToOne (mappedBy = "patient")
     private ProfilMedical profilMedical ;
-    @OneToMany
+    @OneToMany (mappedBy = "patientService")
     private List<Consultation> consultations = new ArrayList<>();
 
 
+    public Patient(){}
 
 
 
-    public Date getDateNaissance() {
-        return dateNaissance;
+    public ProfilMedical getProfilMedical() {
+        return profilMedical;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
+    public void setProfilMedical(ProfilMedical profilMedical) {
+        this.profilMedical = profilMedical;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
 }
