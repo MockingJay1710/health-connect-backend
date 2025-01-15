@@ -38,4 +38,16 @@ public class Patient extends User{
     public void setConsultations(List<Consultation> consultations) {
         this.consultations = consultations;
     }
+
+    public boolean isEmpty() {
+        return consultations.isEmpty();
+    }
+
+    public boolean contains(Object o) {
+        return consultations.contains(o);
+    }
+
+    public boolean add(Consultation consultation) {
+        return consultations.add(consultation);
+    }
 }
