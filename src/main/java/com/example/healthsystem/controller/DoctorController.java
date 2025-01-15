@@ -2,34 +2,32 @@ package com.example.healthsystem.controller;
 
 import com.example.healthsystem.model.Docteur;
 import com.example.healthsystem.service.DocteurService;
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.Doc;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/doctors")  // Defines the base path for the controller
 public class DoctorController {
-    @Autowired
+
     private final DocteurService doctorService;
 
+    @Autowired
     public DoctorController(DocteurService doctorService) {
         this.doctorService = doctorService;
     }
 
-
-    @GetMapping("/doctors")
+    @GetMapping("/allDoctors")
     public List<Docteur> getDoctors() {
-        List<Docteur> response = doctorService.getDoctors();
-        return response;
+        return doctorService.getDoctors();
     }
 
-    @GetMapping("/doctors/{speciality}")
-    public List<Docteur> getDoctorsBySpeciality(@PathVariable(value="speciality") String speciality) {
-        List<Docteur> response = doctorService.getDoctorsBySpeciality(speciality);
-        return response;
+    @GetMapping("/{specialite}")
+    public List<Docteur> getDoctorsBySpeciality(@PathVariable String specialite) {
+        return doctorService.getDoctorsBySpeciality(specialite);
     }
 }

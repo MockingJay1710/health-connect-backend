@@ -22,7 +22,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance (strategy = InheritanceType.JOINED)
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
