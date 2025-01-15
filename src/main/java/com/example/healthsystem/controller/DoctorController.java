@@ -3,10 +3,7 @@ package com.example.healthsystem.controller;
 import com.example.healthsystem.model.Docteur;
 import com.example.healthsystem.service.DocteurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,10 @@ public class DoctorController {
     @GetMapping("/{specialite}")
     public List<Docteur> getDoctorsBySpeciality(@PathVariable String specialite) {
         return doctorService.getDoctorsBySpeciality(specialite);
+    }
+
+    @PostMapping("/save")
+    public Docteur addDoctor(@RequestBody Docteur doctor) {
+        return doctorService.saveDocteur(doctor);
     }
 }

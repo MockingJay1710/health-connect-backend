@@ -5,6 +5,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Docteur extends User{
     public Docteur(){
     }
 
-    public Docteur(Long id, String name, String email, String phone_number, UserType userType,Date dateNaissance, String specialiteDocteur) {
+    public Docteur(Long id, String name, String email, String phone_number, UserType userType, LocalDate dateNaissance, String specialiteDocteur) {
         super(id, name, email, phone_number, userType, dateNaissance);
         this.specialiteDocteur = specialiteDocteur;
     }

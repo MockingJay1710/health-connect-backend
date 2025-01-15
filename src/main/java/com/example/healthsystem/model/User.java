@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -38,12 +39,13 @@ public class User {
   @Column(name = "phone_number")
   private String phone_number;
   @Column (name ="user_type")
+  @Enumerated(EnumType.STRING)
   private UserType user_type;
   @Column (name ="date_Naissance")
-  private Date dateNaissance;
+  private LocalDate dateNaissance;
 
 
-  public User(Long id, String name, String email, String phone_number, UserType userType,Date dateNaissance) {
+  public User(Long id, String name, String email, String phone_number, UserType userType,LocalDate dateNaissance) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -86,4 +88,6 @@ public class User {
   public void setPhone_number(String phone_number) {
     this.phone_number = phone_number;
   }
+
+
 }
