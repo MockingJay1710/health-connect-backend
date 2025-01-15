@@ -9,4 +9,9 @@ import java.util.List;
 
 public interface ConsultationRepository extends JpaRepository<Consultation, Long> {
 
+    @Query("SELECT c FROM Consultation c JOIN c.docteurService d WHERE d.email = :email")
+    List<Consultation> findByDocteurEmail(@Param("email") String email);
+
+    @Query("SELECT c FROM Consultation c JOIN c.patientService d WHERE d.email = :email")
+    List<Consultation> findByPatientEmail(@Param("email") String email);
 }
