@@ -20,6 +20,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "users")
@@ -42,6 +43,7 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserType user_type;
   @Column (name ="date_Naissance")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateNaissance;
 
 
@@ -89,5 +91,19 @@ public class User {
     this.phone_number = phone_number;
   }
 
+  public LocalDate getDateNaissance() {
+    return dateNaissance;
+  }
 
+  public void setDateNaissance(LocalDate dateNaissance) {
+    this.dateNaissance = dateNaissance;
+  }
+
+  public UserType getUser_type() {
+    return user_type;
+  }
+
+  public void setUser_type(UserType user_type) {
+    this.user_type = user_type;
+  }
 }
