@@ -19,7 +19,8 @@ public class Consultation {
     @Column (nullable = false, updatable = true)
     private LocalTime time ;
     private  String notesConsultation ;
-    private  String etatConsultation ;
+    @Enumerated(EnumType.STRING)
+    private  EtatConsultation etatConsultation ;
 
     @ManyToOne (fetch = FetchType.LAZY)
     private Docteur docteurService;
@@ -28,7 +29,7 @@ public class Consultation {
     private Patient patientService;
 
 
-    public Consultation(Long id, LocalDate date, String notesConsultation, String etatConsultation) {
+    public Consultation(Long id, LocalDate date, String notesConsultation, EtatConsultation etatConsultation) {
         this.id = id;
         this.date = date;
         this.notesConsultation = notesConsultation;
@@ -53,6 +54,14 @@ public class Consultation {
         this.date = date;
     }
 
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     public String getNotesConsultation() {
         return notesConsultation;
     }
@@ -61,13 +70,6 @@ public class Consultation {
         this.notesConsultation = notesConsultation;
     }
 
-    public String getEtatConsultation() {
-        return etatConsultation;
-    }
-
-    public void setEtatConsultation(String etatConsultation) {
-        this.etatConsultation = etatConsultation;
-    }
 
     public User getDocteurService() {
         return docteurService;
@@ -85,11 +87,12 @@ public class Consultation {
         this.patientService = patientService;
     }
 
-    public LocalTime getTime() {
-        return time;
+
+    public EtatConsultation getEtatConsultation() {
+        return etatConsultation;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setEtatConsultation(EtatConsultation etatConsultation) {
+        this.etatConsultation = etatConsultation;
     }
 }
