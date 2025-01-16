@@ -24,9 +24,6 @@ public class Consultation {
     @ManyToOne (fetch = FetchType.LAZY)
     private Patient patientService;
 
-    @ManyToOne
-    @JoinColumn (name = "profilMed_id")
-    private ProfilMedical profilMedical;
 
     public Consultation(Long id, Date date, String notesConsultation, EtatConsultation etatConsultation) {
         this.id = id;
@@ -78,13 +75,6 @@ public class Consultation {
         this.patientService = patientService;
     }
 
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
-    }
-
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
-    }
 
     public EtatConsultation getEtatConsultation() {
         return etatConsultation;
