@@ -2,6 +2,8 @@ package com.example.healthsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -12,11 +14,12 @@ public class Consultation {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column (nullable = false, updatable = false)
-    private  Date date ;
+    @Column (nullable = false, updatable = true)
+    private LocalDate date ;
+    @Column (nullable = false, updatable = true)
+    private LocalTime time ;
     private  String notesConsultation ;
-    @Enumerated(EnumType.STRING)
-    private  EtatConsultation etatConsultation ;
+    private  String etatConsultation ;
 
     @ManyToOne (fetch = FetchType.LAZY)
     private Docteur docteurService;
@@ -25,7 +28,7 @@ public class Consultation {
     private Patient patientService;
 
 
-    public Consultation(Long id, Date date, String notesConsultation, EtatConsultation etatConsultation) {
+    public Consultation(Long id, LocalDate date, String notesConsultation, String etatConsultation) {
         this.id = id;
         this.date = date;
         this.notesConsultation = notesConsultation;
@@ -42,11 +45,11 @@ public class Consultation {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -58,6 +61,13 @@ public class Consultation {
         this.notesConsultation = notesConsultation;
     }
 
+    public String getEtatConsultation() {
+        return etatConsultation;
+    }
+
+    public void setEtatConsultation(String etatConsultation) {
+        this.etatConsultation = etatConsultation;
+    }
 
     public User getDocteurService() {
         return docteurService;
@@ -75,12 +85,11 @@ public class Consultation {
         this.patientService = patientService;
     }
 
-
-    public EtatConsultation getEtatConsultation() {
-        return etatConsultation;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setEtatConsultation(EtatConsultation etatConsultation) {
-        this.etatConsultation = etatConsultation;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }
