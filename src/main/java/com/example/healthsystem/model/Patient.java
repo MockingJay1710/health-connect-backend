@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -16,6 +17,7 @@ public class Patient extends User{
     @OneToOne (mappedBy = "patient")
     private ProfilMedical profilMedical ;
     @OneToMany (mappedBy = "patientService")
+    @JsonIgnore
     private List<Consultation> consultations = new ArrayList<>();
 
 

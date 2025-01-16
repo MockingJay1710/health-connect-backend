@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ public class Docteur extends User{
     private String specialiteDocteur;
 
     @OneToMany (mappedBy = "docteurService")
+    @JsonIgnore
     private List<Consultation> consultations= new ArrayList<>();
 
     public Docteur(){
