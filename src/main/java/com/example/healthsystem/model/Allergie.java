@@ -49,4 +49,12 @@ public class Allergie {
     public void setSymptomes(String symptomes) {
         this.symptomes = symptomes;
     }
+
+    public ProfilMedical getProfilMedical() {
+        return profilMedical;
+    }
+
+    public void setProfilMedical(ProfilMedical profilMedical) {
+        this.profilMedical = profilMedical;
+    }
 }

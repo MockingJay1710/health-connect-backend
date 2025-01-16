@@ -58,4 +58,12 @@ public class Vaccination {
     public void setVaccineDate(Date vaccineDate) {
         this.vaccineDate = vaccineDate;
     }
+
+    public ProfilMedical getProfilMedical() {
+        return profilMedical;
+    }
+
+    public void setProfilMedical(ProfilMedical profilMedical) {
+        this.profilMedical = profilMedical;
+    }
 }

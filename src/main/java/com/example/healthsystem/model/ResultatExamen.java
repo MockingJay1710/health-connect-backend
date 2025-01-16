@@ -39,4 +39,20 @@ public class ResultatExamen {
     public void setRemarques(String remarques) {
         this.remarques = remarques;
     }
+
+    public ProfilMedical getProfilMedical() {
+        return profilMedical;
+    }
+
+    public void setProfilMedical(ProfilMedical profilMedical) {
+        this.profilMedical = profilMedical;
+    }
+
+    public Consultation getConsultation() {
+        return consultation;
+    }
+
+    public void setConsultation(Consultation consultation) {
+        this.consultation = consultation;
+    }
 }

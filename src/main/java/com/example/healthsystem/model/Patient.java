@@ -1,10 +1,6 @@
 package com.example.healthsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +10,9 @@ import java.util.List;
 @DiscriminatorValue(value = "PAT")
 public class Patient extends User{
 
-    @OneToOne (mappedBy = "patient")
+    @OneToOne (mappedBy = "patient",fetch = FetchType.LAZY)
     private ProfilMedical profilMedical ;
     @OneToMany (mappedBy = "patientService")
-    @JsonIgnore
     private List<Consultation> consultations = new ArrayList<>();
 
 

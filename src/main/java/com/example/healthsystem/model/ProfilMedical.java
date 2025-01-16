@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "profil_Medical")
+@Entity
 public class ProfilMedical {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
@@ -77,6 +77,8 @@ public class ProfilMedical {
     public void setResultatsExamen(List<ResultatExamen> resultatsExamen) {
         this.resultatsExamen = resultatsExamen;
     }
+
+
 
 
 }

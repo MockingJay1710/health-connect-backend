@@ -1,10 +1,6 @@
 package com.example.healthsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,8 +15,11 @@ public class Docteur extends User{
     private String specialiteDocteur;
 
     @OneToMany (mappedBy = "docteurService")
-    @JsonIgnore
     private List<Consultation> consultations= new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn (name = "docteur")
+    private List<Patient> patients= new ArrayList<>();
 
     public Docteur(){
     }
