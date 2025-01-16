@@ -15,9 +15,10 @@ public class ConsultationController {
         this.consultationService = consultationService;
     }
 
-    @PostMapping("/create/{email}")
-    public Consultation createConsultation(@RequestBody Consultation consultation,@PathVariable String email) {
-        return this.consultationService.createConsultation(consultation, email);
+    @PostMapping("/create/{patientEmail}/doc/{doctorEmail}")
+    public Consultation createConsultation(@RequestBody Consultation consultation,@PathVariable String patientEmail,
+                                           @PathVariable String doctorEmail) {
+        return this.consultationService.createConsultation(consultation, patientEmail, doctorEmail);
     }
     @GetMapping("/consultations/patient/{email}")
     public List<Consultation> getConsultationByEmailPatient(@PathVariable String email) {

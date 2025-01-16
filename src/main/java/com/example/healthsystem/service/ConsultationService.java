@@ -1,6 +1,7 @@
 package com.example.healthsystem.service;
 
 import com.example.healthsystem.model.Consultation;
+import com.example.healthsystem.model.Docteur;
 import com.example.healthsystem.model.Patient;
 import com.example.healthsystem.model.User;
 import com.example.healthsystem.repository.ConsultationRepository;
@@ -27,17 +28,23 @@ public class ConsultationService {
         return this.consultationRepository.findByDocteurEmail(email);
     }
 
-    public Consultation createConsultation(Consultation consultation, String email) {
-        User user = this.userService.findByEmail(email);
+    public Consultation createConsultation(Consultation consultation, String patientEmail,String docteurEmail) {
+        User patientUser = this.userService.findByEmail(patientEmail);
+        User docteurUser = this.userService.findByEmail(docteurEmail);
 
-        if (!(user instanceof Patient)) {
-            throw new IllegalArgumentException("User with email " + email + " is not a patient.");
+        if (!(patientUser instanceof Patient)) {
+            throw new IllegalArgumentException("User with email " + patientEmail + " is not a patient.");
+        }
+        if(!(docteurUser instanceof Docteur)){
+            throw new IllegalArgumentException("User with email " + docteurEmail + " is not a docteur.");
         }
 
-        Patient patient = (Patient) user;
+        Patient patient = (Patient) patientUser;
+        Docteur docteur = (Docteur) docteurUser;
         patient.add(consultation);
         consultation.setPatientService(patient);
-
+        docteur.add(consultation);
+        consultation.setDocteurService(docteur);
         return this.consultationRepository.save(consultation);
     }
 }

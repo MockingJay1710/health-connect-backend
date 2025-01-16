@@ -15,6 +15,7 @@ public class Consultation {
     @Column (nullable = false, updatable = false)
     private  Date date ;
     private  String notesConsultation ;
+    @Enumerated(EnumType.STRING)
     private  EtatConsultation etatConsultation ;
 
     @ManyToOne (fetch = FetchType.LAZY)
