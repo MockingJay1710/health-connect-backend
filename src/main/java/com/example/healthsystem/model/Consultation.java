@@ -15,7 +15,7 @@ public class Consultation {
     @Column (nullable = false, updatable = false)
     private  Date date ;
     private  String notesConsultation ;
-    private  String etatConsultation ;
+    private  EtatConsultation etatConsultation ;
 
     @ManyToOne (fetch = FetchType.LAZY)
     private Docteur docteurService;
@@ -27,7 +27,7 @@ public class Consultation {
     @JoinColumn (name = "profilMed_id")
     private ProfilMedical profilMedical;
 
-    public Consultation(Long id, Date date, String notesConsultation, String etatConsultation) {
+    public Consultation(Long id, Date date, String notesConsultation, EtatConsultation etatConsultation) {
         this.id = id;
         this.date = date;
         this.notesConsultation = notesConsultation;
@@ -60,13 +60,6 @@ public class Consultation {
         this.notesConsultation = notesConsultation;
     }
 
-    public String getEtatConsultation() {
-        return etatConsultation;
-    }
-
-    public void setEtatConsultation(String etatConsultation) {
-        this.etatConsultation = etatConsultation;
-    }
 
     public User getDocteurService() {
         return docteurService;
@@ -90,5 +83,13 @@ public class Consultation {
 
     public void setProfilMedical(ProfilMedical profilMedical) {
         this.profilMedical = profilMedical;
+    }
+
+    public EtatConsultation getEtatConsultation() {
+        return etatConsultation;
+    }
+
+    public void setEtatConsultation(EtatConsultation etatConsultation) {
+        this.etatConsultation = etatConsultation;
     }
 }
