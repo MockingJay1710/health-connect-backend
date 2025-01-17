@@ -5,6 +5,8 @@ import com.example.healthsystem.model.*;
 import com.example.healthsystem.repository.ConsultationRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -18,8 +20,16 @@ public class ConsultationService {
         this.userService= userService;
     }
 
+    public List<Consultation> getAllConsultations() {
+        return consultationRepository.findAll();
+    }
+
     public List<Consultation> findByEmailPatient(String email) {
         return this.consultationRepository.findByPatientEmail(email);
+    }
+
+    public List<Consultation> findByEmailPatientAndStatus(String email,EtatConsultation status) {
+        return this.consultationRepository.findByPatientEmailAndStatus(email,status);
     }
 
     public List<Consultation> findByEmailDocteur(String email) {
@@ -53,4 +63,13 @@ public class ConsultationService {
             return this.consultationRepository.save(consultation);
         }).orElseThrow(()-> new RuntimeException("Consultation with id " + id + " not found or does not exist."));
     }
+
+    public void rescheduleConsultation(Long id, LocalDate date, LocalTime time){
+        this.consultationRepository.findById(id).map( consultation -> {
+            consultation.setDate(date);
+            consultation.setTime(time);
+            return this.consultationRepository.save(consultation);
+        }).orElseThrow(()-> new RuntimeException("Consultation with id " + id + " not found or does not exist."));
+    }
+
 }

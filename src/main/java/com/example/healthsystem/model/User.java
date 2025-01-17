@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -25,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "users")
 @Inheritance (strategy = InheritanceType.JOINED)
-public class User {
+public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

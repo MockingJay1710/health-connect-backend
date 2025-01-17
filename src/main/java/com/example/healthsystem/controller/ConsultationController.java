@@ -6,6 +6,8 @@ import com.example.healthsystem.model.EtatConsultation;
 import com.example.healthsystem.service.ConsultationService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -13,17 +15,29 @@ import java.util.List;
 public class ConsultationController {
 
     private final ConsultationService consultationService;
+
     public ConsultationController(ConsultationService consultationService) {
         this.consultationService = consultationService;
+    }
+
+    @GetMapping("/all")
+    public List<Consultation> getAllConsultation() {
+        return this.consultationService.getAllConsultations();
     }
 
     @PostMapping("/create")
     public Consultation createConsultation(@RequestBody ConsultationDto consultation) {
         return this.consultationService.createConsultation(consultation);
     }
+
     @GetMapping("/consultations/patient/{email}")
     public List<Consultation> getConsultationByEmailPatient(@PathVariable String email) {
         return this.consultationService.findByEmailPatient(email);
+    }
+
+    @GetMapping("/consultations/patient/{email}/{status}")
+    public List<Consultation> getConsultationByEmailPatientAndStatus(@PathVariable String email, @PathVariable EtatConsultation status) {
+        return this.consultationService.findByEmailPatientAndStatus(email, status);
     }
 
     @GetMapping("/consultations/doctor/{email}")
@@ -32,8 +46,18 @@ public class ConsultationController {
     }
 
     @PatchMapping("/change_status/id/{id}/status/{status}")
-    public void alterConsultationStatus(@PathVariable Long id,@PathVariable EtatConsultation status){
+    public void alterConsultationStatus(@PathVariable Long id, @PathVariable EtatConsultation status) {
         this.consultationService.changeStatus(id, status);
+    }
+
+    @PatchMapping("/cancel/{id}")
+    public void alterConsultationStatus(@PathVariable Long id) {
+        this.consultationService.changeStatus(id, EtatConsultation.Canceled);
+    }
+
+    @PutMapping("/reschedule/{date}/{time}/{id}")
+    public void rescheduleConsultation(@PathVariable Long id, @PathVariable LocalDate date, @PathVariable LocalTime time) {
+        this.consultationService.rescheduleConsultation(id, date, time);
     }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class HealthSystemApplication implements CommandLineRunner {
+public class HealthSystemApplication  {
 
 	@Autowired
 	DocteurService docteurService;
@@ -26,8 +26,7 @@ public class HealthSystemApplication implements CommandLineRunner {
 		return String.format(text);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		docteurService.initiateDocteurListe();
-	}
+//	public void run(String... args) throws Exception {
+//		docteurService.initiateDocteurListe();
+//	}
 }
