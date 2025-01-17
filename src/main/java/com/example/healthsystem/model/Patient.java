@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Patient extends User{
     @OneToOne (mappedBy = "patient",fetch = FetchType.LAZY)
     private ProfilMedical profilMedical ;
     @OneToMany (mappedBy = "patientService")
+    @JsonIgnore
     private List<Consultation> consultations = new ArrayList<>();
 
 

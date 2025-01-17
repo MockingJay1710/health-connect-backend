@@ -1,14 +1,17 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "Consultations")
-public class Consultation {
+public class Consultation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -22,10 +25,10 @@ public class Consultation {
     @Enumerated(EnumType.STRING)
     private  EtatConsultation etatConsultation ;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Docteur docteurService;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Patient patientService;
 
 
