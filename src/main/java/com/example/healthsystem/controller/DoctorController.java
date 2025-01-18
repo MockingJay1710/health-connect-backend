@@ -1,6 +1,7 @@
 package com.example.healthsystem.controller;
 
 import com.example.healthsystem.model.Docteur;
+import com.example.healthsystem.model.Patient;
 import com.example.healthsystem.service.DocteurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,15 @@ public class DoctorController {
         return doctorService.getDoctorsBySpeciality(specialite);
     }
 
+    @GetMapping("/{email}/patients")
+    public List<Patient> getPatientsByDocteur(@PathVariable String email) {
+        return doctorService.getPatientsByDocteur(email);
+    }
+
     @PostMapping("/save")
     public Docteur addDoctor(@RequestBody Docteur doctor) {
         return doctorService.saveDocteur(doctor);
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,10 +9,10 @@ public class ResultatExamen {
     private Long id;
     private String notesDoctor;
 
-    @ManyToOne
-    private ProfilMedical profilMedical ;
+
 
     @OneToOne
+    @JsonIgnore
     private Consultation consultation;
 
     public ResultatExamen() {
@@ -38,13 +39,7 @@ public class ResultatExamen {
         this.notesDoctor = remarques;
     }
 
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
-    }
 
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
-    }
 
     public Consultation getConsultation() {
         return consultation;

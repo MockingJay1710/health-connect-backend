@@ -19,9 +19,13 @@ public class Docteur extends User{
     @JsonIgnore
     private List<Consultation> consultations= new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn (name = "docteur")
-    private List<Patient> patients= new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "patient_docteur",
+            joinColumns = @JoinColumn(name = "docteur_id"),
+            inverseJoinColumns = @JoinColumn(name = "patient_id")
+    )
+    private List<Patient> patients = new ArrayList<>();
 
     public Docteur(){
     }
@@ -57,5 +61,17 @@ public class Docteur extends User{
 
     public boolean add(Consultation consultation) {
         return consultations.add(consultation);
+    }
+
+    public boolean addPatient(Patient patient) {
+        return patients.add(patient);
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 }

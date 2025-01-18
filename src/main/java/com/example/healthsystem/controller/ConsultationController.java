@@ -2,7 +2,10 @@ package com.example.healthsystem.controller;
 
 import com.example.healthsystem.dto.ConsultationDto;
 import com.example.healthsystem.model.Consultation;
+import com.example.healthsystem.model.Docteur;
 import com.example.healthsystem.model.EtatConsultation;
+import com.example.healthsystem.repository.ConsultationRepository;
+import com.example.healthsystem.repository.DocteurRepository;
 import com.example.healthsystem.service.ConsultationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +18,13 @@ import java.util.List;
 public class ConsultationController {
 
     private final ConsultationService consultationService;
+    private final ConsultationRepository consultationRepository;
+    private final DocteurRepository docteurRepository;
 
-    public ConsultationController(ConsultationService consultationService) {
+    public ConsultationController(ConsultationService consultationService, ConsultationRepository consultationRepository, DocteurRepository docteurRepository) {
         this.consultationService = consultationService;
+        this.consultationRepository = consultationRepository;
+        this.docteurRepository = docteurRepository;
     }
 
     @GetMapping("/all")
@@ -62,7 +69,13 @@ public class ConsultationController {
 
     @PatchMapping("/accept/{id}")
     public void acceptConsultation(@PathVariable Long id) {
+        Consultation consultation = consultationRepository.findById(id).orElse(null);
+        Docteur docteur =  consultation.getDocteurService();
+        docteur.addPatient(consultation.getPatientService());
+        docteurRepository.save(docteur);
+
         this.consultationService.changeStatus(id, EtatConsultation.Completed);
+
     }
 
     @PutMapping("/reschedule/{date}/{time}/{id}")

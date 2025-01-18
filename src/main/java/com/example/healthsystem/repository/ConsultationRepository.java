@@ -15,7 +15,7 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
 
     @Query("SELECT c FROM Consultation c JOIN c.patientService d WHERE d.email = :email")
     List<Consultation> findByPatientEmail(@Param("email") String email);
-
+//
     @Query("SELECT c FROM Consultation c JOIN c.patientService d WHERE d.email = :email and c.etatConsultation = :status")
     List<Consultation> findByPatientEmailAndStatus(@Param("email") String email, @Param("status") EtatConsultation status);
 

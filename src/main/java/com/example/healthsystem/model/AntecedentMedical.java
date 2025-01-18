@@ -11,12 +11,17 @@ public class AntecedentMedical {
     private String name;
     private Date dateDiagnostic;
     private Severity severity;
-    private String treatement;
+    private String description;
 
-    @ManyToOne
-    private ProfilMedical profilMedical;
 
     public AntecedentMedical() {
+    }
+
+    public AntecedentMedical(String name, Date dateDiagnostic, Severity severity, String description) {
+        this.name = name;
+        this.dateDiagnostic = dateDiagnostic;
+        this.severity = severity;
+        this.description = description;
     }
 
     public Long getId() {
@@ -51,19 +56,14 @@ public class AntecedentMedical {
         this.severity = severity;
     }
 
-    public String getTreatement() {
-        return treatement;
+
+
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setTreatement(String treatement) {
-        this.treatement = treatement;
-    }
-
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
-    }
-
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

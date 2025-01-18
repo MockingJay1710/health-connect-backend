@@ -14,6 +14,9 @@ public class ProfilMedicalService {
     private final ProfilMedicalRepository profilMedicalRepository;
 
     @Autowired
+    private AllergieService allergieService;
+
+    @Autowired
     private AllergieRepository allergieRepository;
 
     @Autowired
@@ -42,7 +45,7 @@ public class ProfilMedicalService {
         return null ;
     }
 
-    public Optional<ProfilMedical> getProfilMedicalById(String mail) {
+    public Optional<ProfilMedical> getProfilMedicalByMail(String mail) {
         return profilMedicalRepository.findByPatientEmail(mail);
     }
 
@@ -55,19 +58,25 @@ public class ProfilMedicalService {
     }
 
 
-    public ProfilMedical addAllergieToProfilMedical(String mailPatient, Allergie allergie) {
+    public ProfilMedical addAllergieToProfilMedical(String mailPatient, String allergieName) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        allergie.setProfilMedical(profilMedical);
+
+        Allergie allergie = allergieService.getAllergieDetails(allergieName);
+        if (allergie == null) {
+            throw new RuntimeException("Allergie not found for name: " + allergieName);
+        }
+
+
         profilMedical.getAllergies().add(allergie);
         allergieRepository.save(allergie);
         return profilMedicalRepository.save(profilMedical);
     }
 
+
     public ProfilMedical addVaccinationToProfilMedical(String mailPatient, Vaccination vaccination) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        vaccination.setProfilMedical(profilMedical);
         profilMedical.getVaccinations().add(vaccination);
         vaccinationRepository.save(vaccination);
         return profilMedicalRepository.save(profilMedical);
@@ -76,7 +85,6 @@ public class ProfilMedicalService {
     public ProfilMedical addResultatExamenToProfilMedical(String mailPatient, ResultatExamen resultatExamen) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        resultatExamen.setProfilMedical(profilMedical);
         profilMedical.getResultatsExamen().add(resultatExamen);
         resultatExamenRepository.save(resultatExamen);
         return profilMedicalRepository.save(profilMedical);
@@ -85,7 +93,6 @@ public class ProfilMedicalService {
     public ProfilMedical addAntecedentMedicalToProfilMedical(String mailPatient, AntecedentMedical antecedentMedical) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        antecedentMedical.setProfilMedical(profilMedical);
         profilMedical.getAntecedentMedicals().add(antecedentMedical);
         antecedantMedicalRepository.save(antecedentMedical);
         return profilMedicalRepository.save(profilMedical);
