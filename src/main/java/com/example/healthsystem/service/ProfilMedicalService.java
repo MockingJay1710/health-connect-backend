@@ -1,13 +1,7 @@
 package com.example.healthsystem.service;
 
-import com.example.healthsystem.model.Allergie;
-import com.example.healthsystem.model.ProfilMedical;
-import com.example.healthsystem.model.ResultatExamen;
-import com.example.healthsystem.model.Vaccination;
-import com.example.healthsystem.repository.AllergieRepository;
-import com.example.healthsystem.repository.ProfilMedicalRepository;
-import com.example.healthsystem.repository.ResultatExamenRepository;
-import com.example.healthsystem.repository.VaccinationRepository;
+import com.example.healthsystem.model.*;
+import com.example.healthsystem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +14,9 @@ public class ProfilMedicalService {
     private final ProfilMedicalRepository profilMedicalRepository;
 
     @Autowired
+    private AllergieService allergieService;
+
+    @Autowired
     private AllergieRepository allergieRepository;
 
     @Autowired
@@ -27,6 +24,8 @@ public class ProfilMedicalService {
 
     @Autowired
     private ResultatExamenRepository resultatExamenRepository;
+    @Autowired
+    private AntecedantMedicalRepository antecedantMedicalRepository;
 
 
     @Autowired
@@ -46,7 +45,7 @@ public class ProfilMedicalService {
         return null ;
     }
 
-    public Optional<ProfilMedical> getProfilMedicalById(String mail) {
+    public Optional<ProfilMedical> getProfilMedicalByMail(String mail) {
         return profilMedicalRepository.findByPatientEmail(mail);
     }
 
@@ -59,33 +58,43 @@ public class ProfilMedicalService {
     }
 
 
-    public ProfilMedical addAllergieToProfilMedical(String mailPatient, Allergie allergie) {
+    public ProfilMedical addAllergieToProfilMedical(String mailPatient, String allergieName) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        allergie.setProfilMedical(profilMedical);
+
+        Allergie allergie = allergieService.getAllergieDetails(allergieName);
+        if (allergie == null) {
+            throw new RuntimeException("Allergie not found for name: " + allergieName);
+        }
+
+
         profilMedical.getAllergies().add(allergie);
         allergieRepository.save(allergie);
-        profilMedical.getAllergies().add(allergie);
         return profilMedicalRepository.save(profilMedical);
     }
+
 
     public ProfilMedical addVaccinationToProfilMedical(String mailPatient, Vaccination vaccination) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        vaccination.setProfilMedical(profilMedical);
         profilMedical.getVaccinations().add(vaccination);
         vaccinationRepository.save(vaccination);
-        profilMedical.getVaccinations().add(vaccination);
         return profilMedicalRepository.save(profilMedical);
     }
 
     public ProfilMedical addResultatExamenToProfilMedical(String mailPatient, ResultatExamen resultatExamen) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        resultatExamen.setProfilMedical(profilMedical);
         profilMedical.getResultatsExamen().add(resultatExamen);
         resultatExamenRepository.save(resultatExamen);
-        profilMedical.getResultatsExamen().add(resultatExamen);
+        return profilMedicalRepository.save(profilMedical);
+    }
+
+    public ProfilMedical addAntecedentMedicalToProfilMedical(String mailPatient, AntecedentMedical antecedentMedical) {
+        ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
+                .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
+        profilMedical.getAntecedentMedicals().add(antecedentMedical);
+        antecedantMedicalRepository.save(antecedentMedical);
         return profilMedicalRepository.save(profilMedical);
     }
 

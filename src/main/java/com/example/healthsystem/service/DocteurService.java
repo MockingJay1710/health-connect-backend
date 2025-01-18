@@ -2,6 +2,7 @@ package com.example.healthsystem.service;
 
 import com.example.healthsystem.model.Consultation;
 import com.example.healthsystem.model.Docteur;
+import com.example.healthsystem.model.Patient;
 import com.example.healthsystem.model.UserType;
 import com.example.healthsystem.repository.ConsultationRepository;
 import com.example.healthsystem.repository.DocteurRepository;
@@ -72,6 +73,11 @@ public class DocteurService {
         } else {
             throw new RuntimeException("Docteur with ID " + docteurId + " does not exist.");
         }
+    }
+
+    public List<Patient> getPatientsByDocteur(String mailDocteur) {
+        Optional<Docteur> docteurOpt = docteurRepository.findByEmail(mailDocteur);
+        return docteurOpt.get().getPatients();
     }
 
     public void removeConsultation(Long consultationId) {

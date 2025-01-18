@@ -2,6 +2,7 @@ package com.example.healthsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -10,20 +11,17 @@ public class Vaccination {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String vaccineName;
-    private String vaccineType;
-    private Date vaccineDate;
+    private LocalDate vaccineDate;
+    private LocalDate nextDue;
 
-    @ManyToOne
-    private ProfilMedical profilMedical ;
+
 
     public Vaccination() {
-
     }
 
-    public Vaccination(Long id, String vaccineName, String vaccineType, Date vaccineDate) {
+    public Vaccination(Long id, String vaccineName, String vaccineType, LocalDate vaccineDate) {
         this.id = id;
         this.vaccineName = vaccineName;
-        this.vaccineType = vaccineType;
         this.vaccineDate = vaccineDate;
     }
 
@@ -43,27 +41,22 @@ public class Vaccination {
         this.vaccineName = vaccineName;
     }
 
-    public String getVaccineType() {
-        return vaccineType;
-    }
-
-    public void setVaccineType(String vaccineType) {
-        this.vaccineType = vaccineType;
-    }
-
-    public Date getVaccineDate() {
+    public LocalDate getVaccineDate() {
         return vaccineDate;
     }
 
-    public void setVaccineDate(Date vaccineDate) {
+    public void setVaccineDate(LocalDate vaccineDate) {
         this.vaccineDate = vaccineDate;
     }
 
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
+
+
+    public LocalDate getNextDue() {
+        return nextDue;
     }
 
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
+    public void setNextDue(LocalDate
+                                   nextDue) {
+        this.nextDue = nextDue;
     }
 }

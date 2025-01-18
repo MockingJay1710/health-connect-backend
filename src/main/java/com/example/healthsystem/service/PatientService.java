@@ -2,8 +2,10 @@ package com.example.healthsystem.service;
 
 import com.example.healthsystem.model.Patient;
 import com.example.healthsystem.model.Consultation;
+import com.example.healthsystem.model.ProfilMedical;
 import com.example.healthsystem.repository.PatientRepository;
 import com.example.healthsystem.repository.ConsultationRepository;
+import com.example.healthsystem.repository.ProfilMedicalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,13 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final ConsultationRepository consultationRepository;
+    private final ProfilMedicalRepository profilMedicalRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, ConsultationRepository consultationRepository) {
+    public PatientService(PatientRepository patientRepository, ConsultationRepository consultationRepository, ProfilMedicalRepository profilMedicalRepository) {
         this.patientRepository = patientRepository;
         this.consultationRepository = consultationRepository;
+        this.profilMedicalRepository = profilMedicalRepository;
     }
 
     public List<Patient> getAllPatients() {
@@ -31,8 +35,18 @@ public class PatientService {
     }
 
     public Patient savePatient(Patient patient) {
+        patient = patientRepository.save(patient);
+
+        ProfilMedical profilMedical = new ProfilMedical();
+        profilMedical.setPatient(patient);
+
+        profilMedicalRepository.save(profilMedical);
+
+        patient.setProfilMedical(profilMedical);
+
         return patientRepository.save(patient);
     }
+
 
     public void deletePatient(Long id) {
         if (patientRepository.existsById(id)) {

@@ -12,10 +12,11 @@ public class Allergie {
     private Long id;
 
     private String nomAllergie;
+    private Severity severity;
     private String symptomes;
+    private String treatement;
 
-    @ManyToOne
-    private ProfilMedical profilMedical ;
+
 
     public Allergie() {
     }
@@ -25,6 +26,13 @@ public class Allergie {
         this.nomAllergie = nomAllergie;
         this.symptomes = symptomes;
       }
+
+    public Allergie(String nomAllergie, Severity severity, String symptomes, String treatement) {
+        this.nomAllergie = nomAllergie;
+        this.severity = severity;
+        this.symptomes = symptomes;
+        this.treatement = treatement;
+    }
 
     public Long getId() {
         return id;
@@ -50,11 +58,20 @@ public class Allergie {
         this.symptomes = symptomes;
     }
 
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
+
+    public Severity getSeverity() {
+        return severity;
     }
 
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
+    public void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
+    public String getTreatement() {
+        return treatement;
+    }
+
+    public void setTreatement(String treatement) {
+        this.treatement = treatement;
     }
 }

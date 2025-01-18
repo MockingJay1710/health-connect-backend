@@ -74,7 +74,7 @@ public class Consultation implements Serializable {
     }
 
 
-    public User getDocteurService() {
+    public Docteur getDocteurService() {
         return docteurService;
     }
 

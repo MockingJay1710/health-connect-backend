@@ -1,5 +1,6 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,17 +12,23 @@ public class ProfilMedical {
     private Long id ;
     private String contactUrgence ;
 
+
     @OneToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnore
     private Patient patient;
 
-
-    @OneToMany (fetch = FetchType.EAGER , mappedBy = "profilMedical")
+    @ManyToMany (fetch = FetchType.EAGER )
     private List<Allergie> allergies = new ArrayList<>();
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
+    @ManyToMany (fetch = FetchType.EAGER )
     private List<Vaccination> vaccinations = new ArrayList<>();
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
+    @ManyToMany (fetch = FetchType.EAGER )
     private List<ResultatExamen> resultatsExamen = new ArrayList<>();
+    @ManyToMany (fetch = FetchType.EAGER )
+    private List<AntecedentMedical> antecedentMedicals  = new ArrayList<>();
+
+
+
 
     public ProfilMedical(Long id, String contactUrgence, Patient patient) {
         this.id = id;
@@ -78,7 +85,11 @@ public class ProfilMedical {
         this.resultatsExamen = resultatsExamen;
     }
 
+    public List<AntecedentMedical> getAntecedentMedicals() {
+        return antecedentMedicals;
+    }
 
-
-
+    public void setAntecedentMedicals(List<AntecedentMedical> antecedentMedicals) {
+        this.antecedentMedicals = antecedentMedicals;
+    }
 }

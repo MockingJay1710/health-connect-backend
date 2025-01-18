@@ -1,19 +1,18 @@
 package com.example.healthsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 @Entity
 public class ResultatExamen {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private String remarques  ;
+    private String notesDoctor;
 
-    @ManyToOne
-    private ProfilMedical profilMedical ;
+
 
     @OneToOne
+    @JsonIgnore
     private Consultation consultation;
 
     public ResultatExamen() {
@@ -21,7 +20,7 @@ public class ResultatExamen {
 
     public ResultatExamen(Long id, String remarques) {
         this.id = id;
-        this.remarques = remarques;
+        this.notesDoctor = remarques;
     }
 
     public Long getId() {
@@ -32,21 +31,15 @@ public class ResultatExamen {
         this.id = id;
     }
 
-    public String getRemarques() {
-        return remarques;
+    public String getNotesDoctor() {
+        return notesDoctor;
     }
 
-    public void setRemarques(String remarques) {
-        this.remarques = remarques;
+    public void setNotesDoctor(String remarques) {
+        this.notesDoctor = remarques;
     }
 
-    public ProfilMedical getProfilMedical() {
-        return profilMedical;
-    }
 
-    public void setProfilMedical(ProfilMedical profilMedical) {
-        this.profilMedical = profilMedical;
-    }
 
     public Consultation getConsultation() {
         return consultation;
