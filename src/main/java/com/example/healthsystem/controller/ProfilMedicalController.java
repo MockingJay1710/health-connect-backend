@@ -1,9 +1,6 @@
 package com.example.healthsystem.controller;
 
-import com.example.healthsystem.model.Allergie;
-import com.example.healthsystem.model.ProfilMedical;
-import com.example.healthsystem.model.ResultatExamen;
-import com.example.healthsystem.model.Vaccination;
+import com.example.healthsystem.model.*;
 import com.example.healthsystem.service.ProfilMedicalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,21 +42,27 @@ public class ProfilMedicalController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{mailPatient}/allergies")
+    @PostMapping("/{mailPatient}/addAllergies")
     public ResponseEntity<ProfilMedical> addAllergie(@PathVariable String patientMail, @RequestBody Allergie allergie) {
         ProfilMedical updatedProfilMedical = profilMedicalService.addAllergieToProfilMedical(patientMail, allergie);
         return ResponseEntity.ok(updatedProfilMedical);
     }
 
-    @PostMapping("/{mailPatient}/vaccinations")
+    @PostMapping("/{mailPatient}/AddVaccination")
     public ResponseEntity<ProfilMedical> addVaccination(@PathVariable String patientMail, @RequestBody Vaccination vaccination) {
         ProfilMedical updatedProfilMedical = profilMedicalService.addVaccinationToProfilMedical(patientMail, vaccination);
         return ResponseEntity.ok(updatedProfilMedical);
     }
 
-    @PostMapping("/{mailPatient}/resultats-examen")
+    @PostMapping("/{mailPatient}/AddResultatExamen")
     public ResponseEntity<ProfilMedical> addResultatExamen(@PathVariable String patientMail, @RequestBody ResultatExamen resultatExamen) {
         ProfilMedical updatedProfilMedical = profilMedicalService.addResultatExamenToProfilMedical(patientMail, resultatExamen);
+        return ResponseEntity.ok(updatedProfilMedical);
+    }
+
+    @PostMapping("/{mailPatient}/AddAntecedant")
+    public ResponseEntity<ProfilMedical> addAntecedantMedical(@PathVariable String patientMail, @RequestBody AntecedentMedical antecedentMedical) {
+        ProfilMedical updatedProfilMedical = profilMedicalService.addAntecedentMedicalToProfilMedical(patientMail, antecedentMedical);
         return ResponseEntity.ok(updatedProfilMedical);
     }
 

@@ -45,14 +45,24 @@ public class ConsultationController {
         return this.consultationService.findByEmailDocteur(email);
     }
 
+    @GetMapping("/consultations/doctor/{email}/{status}")
+    public List<Consultation> getConsultationByEmailDocteurAndStatus(@PathVariable String email, @PathVariable EtatConsultation status) {
+        return this.consultationService.findByEmailDocteurAndStatus(email, status);
+    }
+
     @PatchMapping("/change_status/id/{id}/status/{status}")
     public void alterConsultationStatus(@PathVariable Long id, @PathVariable EtatConsultation status) {
         this.consultationService.changeStatus(id, status);
     }
 
     @PatchMapping("/cancel/{id}")
-    public void alterConsultationStatus(@PathVariable Long id) {
+    public void cancelConsultation(@PathVariable Long id) {
         this.consultationService.changeStatus(id, EtatConsultation.Canceled);
+    }
+
+    @PatchMapping("/accept/{id}")
+    public void acceptConsultation(@PathVariable Long id) {
+        this.consultationService.changeStatus(id, EtatConsultation.Completed);
     }
 
     @PutMapping("/reschedule/{date}/{time}/{id}")

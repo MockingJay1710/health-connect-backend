@@ -11,10 +11,10 @@ public class ProfilMedical {
     private Long id ;
     private String contactUrgence ;
 
+
     @OneToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
-
 
     @OneToMany (fetch = FetchType.EAGER , mappedBy = "profilMedical")
     private List<Allergie> allergies = new ArrayList<>();
@@ -22,6 +22,11 @@ public class ProfilMedical {
     private List<Vaccination> vaccinations = new ArrayList<>();
     @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
     private List<ResultatExamen> resultatsExamen = new ArrayList<>();
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "profilMedical")
+    private List<AntecedentMedical> antecedentMedicals  = new ArrayList<>();
+
+
+
 
     public ProfilMedical(Long id, String contactUrgence, Patient patient) {
         this.id = id;
@@ -78,7 +83,11 @@ public class ProfilMedical {
         this.resultatsExamen = resultatsExamen;
     }
 
+    public List<AntecedentMedical> getAntecedentMedicals() {
+        return antecedentMedicals;
+    }
 
-
-
+    public void setAntecedentMedicals(List<AntecedentMedical> antecedentMedicals) {
+        this.antecedentMedicals = antecedentMedicals;
+    }
 }

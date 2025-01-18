@@ -12,7 +12,9 @@ public class Allergie {
     private Long id;
 
     private String nomAllergie;
+    private Severity severity;
     private String symptomes;
+    private String treatement;
 
     @ManyToOne
     private ProfilMedical profilMedical ;
@@ -56,5 +58,21 @@ public class Allergie {
 
     public void setProfilMedical(ProfilMedical profilMedical) {
         this.profilMedical = profilMedical;
+    }
+
+    public Severity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
+    public String getTreatement() {
+        return treatement;
+    }
+
+    public void setTreatement(String treatement) {
+        this.treatement = treatement;
     }
 }

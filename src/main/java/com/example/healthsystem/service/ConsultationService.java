@@ -36,6 +36,10 @@ public class ConsultationService {
         return this.consultationRepository.findByDocteurEmail(email);
     }
 
+    public List<Consultation> findByEmailDocteurAndStatus(String email,EtatConsultation status) {
+        return this.consultationRepository.findByDocteurEmailAndStatus(email,status);
+    }
+
     public Consultation createConsultation(ConsultationDto consultationDto) {
         User patientUser = this.userService.findByEmail(consultationDto.getPatientEmail());
         User docteurUser = this.userService.findByEmail(consultationDto.getDoctorEmail());
