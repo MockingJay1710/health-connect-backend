@@ -26,7 +26,9 @@ public class HealthSystemApplication  {
 		return String.format(text);
 	}
 
+
+//	@Override
 //	public void run(String... args) throws Exception {
-//		docteurService.initiateDocteurListe();
+//		this.docteurService.initiateDocteurListe();
 //	}
 }

@@ -3,17 +3,15 @@ package com.example.healthsystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class ResultatExamen {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String notesDoctor;
+    private LocalDate date;
 
-
-
-    @OneToOne
-    @JsonIgnore
-    private Consultation consultation;
 
     public ResultatExamen() {
     }
@@ -40,12 +38,11 @@ public class ResultatExamen {
     }
 
 
-
-    public Consultation getConsultation() {
-        return consultation;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setConsultation(Consultation consultation) {
-        this.consultation = consultation;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

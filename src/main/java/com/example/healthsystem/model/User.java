@@ -2,7 +2,9 @@ package com.example.healthsystem.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import com.example.healthsystem.model.ProfilMedical;
@@ -46,6 +48,10 @@ public class User implements Serializable {
   @Column (name ="date_Naissance")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateNaissance;
+
+  @OneToMany
+  @JoinColumn(name = "user_id")
+  private List<Conversation> conversations = new ArrayList<>();
 
 
   public User(Long id, String name, String email, String phone_number, UserType userType,LocalDate dateNaissance) {
@@ -106,5 +112,17 @@ public class User implements Serializable {
 
   public void setUser_type(UserType user_type) {
     this.user_type = user_type;
+  }
+
+  public List<Conversation> getConversations() {
+    return conversations;
+  }
+
+  public void setConversations(List<Conversation> conversations) {
+    this.conversations = conversations;
+  }
+
+  public boolean add(Conversation conversation) {
+    return conversations.add(conversation);
   }
 }

@@ -2,6 +2,7 @@ package com.example.healthsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -9,18 +10,16 @@ public class AntecedentMedical {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private String name;
-    private Date dateDiagnostic;
-    private Severity severity;
+    private LocalDate dateDiagnostic;
     private String description;
 
 
     public AntecedentMedical() {
     }
 
-    public AntecedentMedical(String name, Date dateDiagnostic, Severity severity, String description) {
+    public AntecedentMedical(String name, LocalDate dateDiagnostic, String description) {
         this.name = name;
         this.dateDiagnostic = dateDiagnostic;
-        this.severity = severity;
         this.description = description;
     }
 
@@ -40,24 +39,13 @@ public class AntecedentMedical {
         this.name = name;
     }
 
-    public Date getDateDiagnostic() {
+    public LocalDate getDateDiagnostic() {
         return dateDiagnostic;
     }
 
-    public void setDateDiagnostic(Date dateDiagnostic) {
+    public void setDateDiagnostic(LocalDate dateDiagnostic) {
         this.dateDiagnostic = dateDiagnostic;
     }
-
-    public Severity getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(Severity severity) {
-        this.severity = severity;
-    }
-
-
-
 
     public String getDescription() {
         return description;

@@ -11,7 +11,7 @@ import java.util.List;
 @DiscriminatorValue(value = "PAT")
 public class Patient extends User{
 
-    @OneToOne (mappedBy = "patient",fetch = FetchType.LAZY)
+    @OneToOne (mappedBy = "patient",fetch = FetchType.EAGER)
     private ProfilMedical profilMedical ;
     @OneToMany (mappedBy = "patientService")
     @JsonIgnore

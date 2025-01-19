@@ -67,7 +67,6 @@ public class ProfilMedicalService {
             throw new RuntimeException("Allergie not found for name: " + allergieName);
         }
 
-
         profilMedical.getAllergies().add(allergie);
         allergieRepository.save(allergie);
         return profilMedicalRepository.save(profilMedical);
@@ -85,8 +84,8 @@ public class ProfilMedicalService {
     public ProfilMedical addResultatExamenToProfilMedical(String mailPatient, ResultatExamen resultatExamen) {
         ProfilMedical profilMedical = profilMedicalRepository.findByPatientEmail(mailPatient)
                 .orElseThrow(() -> new RuntimeException("ProfilMedical not found"));
-        profilMedical.getResultatsExamen().add(resultatExamen);
         resultatExamenRepository.save(resultatExamen);
+        profilMedical.getResultatsExamen().add(resultatExamen);
         return profilMedicalRepository.save(profilMedical);
     }
 

@@ -61,6 +61,13 @@ public class ProfilMedicalController {
         return ResponseEntity.ok(profilMedical.get().getAntecedentMedicals());
     }
 
+    @GetMapping("/{mailPatient}/resultats-examen")
+    public ResponseEntity<List<ResultatExamen>> getResultatsExamensByEmail(@PathVariable String mailPatient) {
+        Optional<ProfilMedical> profilMedical = profilMedicalService.getProfilMedicalByMail(mailPatient);
+
+        return ResponseEntity.ok(profilMedical.get().getResultatsExamen());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfilMedical(@PathVariable Long id) {
         profilMedicalService.deleteProfilMedical(id);
@@ -69,27 +76,27 @@ public class ProfilMedicalController {
 
     @PostMapping("/{patientMail}/{nameAllergie}/addAllergies")
     public ResponseEntity<Allergie> addAllergie(@PathVariable String patientMail, @PathVariable String nameAllergie) {
-        ProfilMedical updatedProfilMedical = profilMedicalService.addAllergieToProfilMedical(patientMail, nameAllergie);
+        profilMedicalService.addAllergieToProfilMedical(patientMail, nameAllergie);
 
         return ResponseEntity.ok(allergieService.getAllergieDetails(nameAllergie));
     }
 
     @PostMapping("/{patientMail}/AddVaccination")
-    public ResponseEntity<ProfilMedical> addVaccination(@PathVariable String patientMail, @RequestBody Vaccination vaccination) {
-        ProfilMedical updatedProfilMedical = profilMedicalService.addVaccinationToProfilMedical(patientMail, vaccination);
-        return ResponseEntity.ok(updatedProfilMedical);
+    public ResponseEntity<Vaccination> addVaccination(@PathVariable String patientMail, @RequestBody Vaccination vaccination) {
+        profilMedicalService.addVaccinationToProfilMedical(patientMail, vaccination);
+        return ResponseEntity.ok(vaccination);
     }
 
     @PostMapping("/{patientMail}/AddResultatExamen")
-    public ResponseEntity<ProfilMedical> addResultatExamen(@PathVariable String patientMail, @RequestBody ResultatExamen resultatExamen) {
-        ProfilMedical updatedProfilMedical = profilMedicalService.addResultatExamenToProfilMedical(patientMail, resultatExamen);
-        return ResponseEntity.ok(updatedProfilMedical);
+    public ResponseEntity<ResultatExamen> addResultatExamen(@PathVariable String patientMail, @RequestBody ResultatExamen resultatExamen) {
+        profilMedicalService.addResultatExamenToProfilMedical(patientMail, resultatExamen);
+        return ResponseEntity.ok(resultatExamen);
     }
 
-    @PostMapping("/{mailPatient}/AddAntecedant")
-    public ResponseEntity<ProfilMedical> addAntecedantMedical(@PathVariable String patientMail, @RequestBody AntecedentMedical antecedentMedical) {
-        ProfilMedical updatedProfilMedical = profilMedicalService.addAntecedentMedicalToProfilMedical(patientMail, antecedentMedical);
-        return ResponseEntity.ok(updatedProfilMedical);
+    @PostMapping("/{patientMail}/AddAntecedant")
+    public ResponseEntity<AntecedentMedical> addAntecedantMedical(@PathVariable String patientMail, @RequestBody AntecedentMedical antecedentMedical) {
+        profilMedicalService.addAntecedentMedicalToProfilMedical(patientMail, antecedentMedical);
+        return ResponseEntity.ok(antecedentMedical);
     }
 
 

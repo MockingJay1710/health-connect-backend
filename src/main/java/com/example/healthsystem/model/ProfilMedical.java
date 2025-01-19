@@ -20,11 +20,11 @@ public class ProfilMedical {
 
     @ManyToMany (fetch = FetchType.EAGER )
     private List<Allergie> allergies = new ArrayList<>();
-    @ManyToMany (fetch = FetchType.EAGER )
+    @OneToMany (fetch = FetchType.EAGER )
     private List<Vaccination> vaccinations = new ArrayList<>();
-    @ManyToMany (fetch = FetchType.EAGER )
+    @OneToMany (fetch = FetchType.EAGER )
     private List<ResultatExamen> resultatsExamen = new ArrayList<>();
-    @ManyToMany (fetch = FetchType.EAGER )
+    @OneToMany (fetch = FetchType.EAGER )
     private List<AntecedentMedical> antecedentMedicals  = new ArrayList<>();
 
 
